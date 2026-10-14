@@ -1,0 +1,11 @@
+{
+  "name": "wise-hive",
+  "version": "1.0.0",
+  "description": "The Wise Hive Lite (uses less of your Claude usage). The Wise Hive agents as skills: Council, Brainstormer, Librarian, Organizer, Refiner, Clarifier, Inventor, Trainer, Foreman, Messenger and Blender modeling. They share the brain folder with The Wise Hive app.",
+  "author": {
+    "name": "darrenaccount"
+  },
+  "homepage": "https://github.com/darrenaccount/wise-hive/tree/main/2-wise-hive-lite",
+  "repository": "https://github.com/darrenaccount/wise-hive",
+  "license": "MIT"
+}

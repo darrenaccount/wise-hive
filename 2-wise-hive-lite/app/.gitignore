@@ -1,0 +1,7 @@
+node_modules/
+backups/
+backup-*/
+.research/
+*.log
+.user-quit
+__pycache__/

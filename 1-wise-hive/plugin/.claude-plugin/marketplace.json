@@ -1,0 +1,17 @@
+{
+  "name": "wise-hive-local",
+  "owner": {
+    "name": "darrenaccount"
+  },
+  "metadata": {
+    "description": "The Wise Hive's skills, installed from your brain folder by the The Wise Hive installer."
+  },
+  "plugins": [
+    {
+      "name": "wise-hive",
+      "source": "./wise-hive",
+      "description": "The Wise Hive agents as skills: Council, Brainstormer, Librarian, Organizer, Refiner, Clarifier, Inventor, Trainer, Foreman, Messenger and Blender modeling. They share the brain folder with The Wise Hive app.",
+      "version": "1.0.0"
+    }
+  ]
+}

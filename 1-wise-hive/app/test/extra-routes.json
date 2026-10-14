@@ -1,0 +1,157 @@
+{
+ "routes": [
+  {
+   "path": "/api/review",
+   "keys": [
+    "projects",
+    "count"
+   ]
+  },
+  {
+   "path": "/api/review/count",
+   "keys": [
+    "count"
+   ]
+  },
+  {
+   "path": "/api/search?q=teamwright",
+   "keys": [
+    "results"
+   ]
+  },
+  {
+   "path": "/api/digest",
+   "keys": [
+    "show"
+   ]
+  },
+  {
+   "path": "/api/memhealth/last"
+  },
+  {
+   "path": "/api/cleanup/preview",
+   "keys": [
+    "settings",
+    "categories"
+   ]
+  },
+  {
+   "path": "/api/phone?nocheck=1"
+  },
+  {
+   "path": "/api/jobs",
+   "keys": [
+    "live",
+    "history",
+    "stall"
+   ]
+  },
+  {
+   "path": "/api/council/seats",
+   "keys": [
+    "roster",
+    "seats",
+    "min",
+    "max"
+   ]
+  },
+  {
+   "path": "/api/media/roots",
+   "keys": [
+    "roots",
+    "limits",
+    "hint"
+   ]
+  },
+  {
+   "path": "/api/media/chat/apitest-probe-key",
+   "keys": [
+    "items"
+   ]
+  },
+  {
+   "path": "/api/autopilot/working/rounds",
+   "keys": [
+    "rounds",
+    "projects",
+    "slug"
+   ]
+  },
+  {
+   "path": "/api/trim",
+   "keys": [
+    "words",
+    "report",
+    "running"
+   ]
+  },
+  {
+   "path": "/api/skillsmith",
+   "keys": [
+    "history",
+    "running",
+    "newLessons"
+   ]
+  },
+  {
+   "path": "/api/taste",
+   "keys": [
+    "items",
+    "total",
+    "counts",
+    "settings",
+    "reasons"
+   ]
+  },
+  {
+   "path": "/api/taste/count",
+   "keys": [
+    "count"
+   ]
+  },
+  {
+   "path": "/api/taste/summary",
+   "keys": [
+    "text",
+    "reviews"
+   ]
+  },
+  {
+   "path": "/api/taste/styles",
+   "keys": [
+    "styles",
+    "picks"
+   ]
+  },
+  {
+   "path": "/api/taste/summary?style=general",
+   "keys": [
+    "style",
+    "text"
+   ]
+  },
+  {
+   "path": "/api/obsidian/status",
+   "keys": [
+    "ok",
+    "vault"
+   ]
+  }
+ ],
+ "unit": [
+  "jobs-test.js",
+  "council-test.js",
+  "context-menu-test.js",
+  "media-test.js",
+  "rounds-test.js",
+  "rounds-loop-test.js",
+  "trim-test.js",
+  "skillsmith-test.js",
+  "taste-test.js",
+  "taste-kinds-test.js",
+  "obsidian-test.js",
+  "server-io-test.js",
+  "review-test.js",
+  "autopilot-test.js"
+ ]
+}

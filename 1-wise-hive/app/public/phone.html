@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101216">
+<meta name="color-scheme" content="dark">
+<meta name="referrer" content="no-referrer">
+<title>The Wise Hive</title>
+<!-- The phone page (served only by phone.js on the LAN port). Self-contained: no external files, one nonce'd script. -->
+<style>
+:root{--bg:#101216;--surface:#191c21;--raised:#20242b;--ink:#e9ebef;--muted:#9097a3;--line:#292d35;--claude:#e5896a;--ok:#5cc28a;--warn:#e0a84a;--bad:#ef7a72;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-text-size-adjust:100%}
+body{padding:max(14px,env(safe-area-inset-top)) 14px max(24px,env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+header h1{font-size:22px;margin:0;flex:1}
+.conn{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:22px 0 10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.card.new{border-color:var(--claude);box-shadow:0 0 0 3px rgba(229,137,106,.18)}
+.chat{font-size:13px;color:var(--muted);margin:0 0 4px;overflow-wrap:anywhere}
+.what{font-size:19px;font-weight:700;margin:0 0 8px;overflow-wrap:anywhere}
+.box{background:#0b0d10;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:14px/1.4 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;margin:0 0 10px}
+.when{font-size:13px;color:var(--muted);margin:0 0 12px}
+.row{display:flex;gap:10px}
+button{font:inherit;font-weight:700;border-radius:14px;border:1px solid var(--line);background:var(--raised);color:var(--ink);min-height:56px;padding:12px 16px;cursor:pointer;touch-action:manipulation}
+button:disabled{opacity:.5}
+.row button{flex:1}
+.allow{background:var(--ok);border-color:var(--ok);color:#0b0d10}
+.deny{background:transparent;border-color:var(--bad);color:var(--bad)}
+.send{background:var(--claude);border-color:var(--claude);color:#fff;width:100%}
+.q{margin:0 0 14px}
+.q b{display:block;font-size:18px;margin-bottom:8px;overflow-wrap:anywhere}
+.opt{display:block;width:100%;text-align:left;margin:0 0 8px;font-weight:600}
+.opt small{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:2px}
+.opt[aria-pressed=true]{border-color:var(--claude);background:#33231e}
+textarea{width:100%;font:inherit;color:var(--ink);background:#0b0d10;border:1px solid var(--line);border-radius:12px;padding:12px;min-height:56px;resize:vertical}
+.empty{text-align:center;padding:28px 16px;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:20px;margin:8px 0 4px}
+.empty svg{width:48px;height:48px;color:var(--ok)}
+.run{display:flex;align-items:center;gap:12px}
+.run div{flex:1;min-width:0}
+.run b{display:block;overflow-wrap:anywhere;font-size:16px}
+.run small{color:var(--muted);font-size:13px}
+.run button{min-height:48px;flex:none}
+.run button.armed{background:var(--bad);border-color:var(--bad);color:#0b0d10}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0}
+.msg.bad{border-color:var(--bad)}
+.note{font-size:13px;color:var(--muted);margin:26px 0 0}
+.done{color:var(--ok);font-weight:700;margin:0}
+.err{color:var(--bad);font-size:14px;margin:8px 0 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><h1>The Wise Hive</h1><span class="conn"><span class="dot" id="dot"></span><span id="connText">Connecting…</span></span></header>
+<div class="msg" id="gate" hidden></div>
+<main id="main" hidden>
+  <h2>Needs you</h2>
+  <div id="pending"></div>
+  <div class="card empty" id="empty" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg><b>Nothing needs you</b>When Claude asks something, it shows up here.</div>
+  <h2>Running now</h2>
+  <div id="running"></div>
+</main>
+<p class="note">Works only on your home Wi-Fi, while The Wise Hive is running on your PC. The connection isn't encrypted, so don't use this on public Wi-Fi. If you don't answer, Claude carries on by itself after 15 minutes.</p>
+<script nonce="__NONCE__">
+"use strict";
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const H = { "X-Hive-Phone": "1", "Content-Type": "application/json" };
+  const call = (p, body) => fetch(p, body ? { method: "POST", headers: H, body: JSON.stringify(body), credentials: "same-origin", cache: "no-store" } : { headers: H, credentials: "same-origin", cache: "no-store" })
+    .then(async (r) => ({ status: r.status, data: await r.json().catch(() => ({})) }));
+  const mins = (ms) => { const m = Math.max(0, Math.round(ms / 60000)); return m < 1 ? "less than a minute" : m === 1 ? "1 minute" : m + " minutes"; };
+  const KIND = { chat: "Chat", training: "Training", working: "Working", update: "Update" };
+  const TOOL = { Bash: "run a command", PowerShell: "run a PowerShell command", Edit: "edit a file", MultiEdit: "edit a file", Write: "write a file", Read: "read a file", WebFetch: "open a web page", WebSearch: "search the web", NotebookEdit: "edit a notebook" };
+  const toolWords = (t) => TOOL[t] ? TOOL[t] : "use " + String(t || "a tool").replace(/^mcp__([^_]+(?:_[^_]+)*)__/, (m, s) => s.replace(/_/g, " ") + ": ");
+
+  let timer = 0, known = null, offset = 0, stopped = false;
+  const armed = new Map(); // run id -> timeout for the two-tap Stop
+  const cards = new Map(); // "run:req" -> element; kept between refreshes so typing and picks survive
+
+  function gate(html) { stopped = true; clearTimeout(timer); $("main").hidden = true; $("gate").hidden = false; $("gate").innerHTML = html; $("dot").className = "dot bad"; $("connText").textContent = "Not connected"; document.title = "The Wise Hive"; }
+  const UNPAIRED = "<b>Connect this phone</b><p>On your PC, open The Wise Hive → Settings → Phone and scan the QR code with this phone's camera.</p>";
+
+  // First visit from the QR code: trade the link's key for a cookie, then remove it from the address bar and history.
+  async function pair() {
+    const u = new URL(location.href), k = u.searchParams.get("k");
+    if (!k) return;
+    history.replaceState(null, "", u.pathname);
+    const r = await call("/papi/pair", { k }).catch(() => null);
+    if (!r) return;
+    if (r.status === 401) gate("<b>This link has expired</b><p>The link was reset on your PC. Scan the new QR code in The Wise Hive → Settings → Phone.</p>");
+    if (r.status === 429) gate("<b>Too many tries</b><p>Wait 10 minutes, then scan the QR code again.</p>");
+    if (r.status === 403) gate("<b>Phone answering is off</b><p>Turn on “Answer from my phone” in The Wise Hive → Settings on your PC.</p>");
+  }
+
+  async function refresh() {
+    clearTimeout(timer);
+    if (stopped) return;
+    let r;
+    try { r = await call("/papi/state"); }
+    catch { $("dot").className = "dot bad"; $("connText").textContent = "Can't reach your PC"; timer = setTimeout(refresh, 5000); return; }
+    if (r.status === 401) return gate(r.data.error === "badcookie" ? "<b>Signed out</b><p>The phone link was reset on your PC. Scan the new QR code in The Wise Hive → Settings → Phone.</p>" : UNPAIRED);
+    if (r.status === 403) return gate("<b>Phone answering is off</b><p>Turn on “Answer from my phone” in The Wise Hive → Settings on your PC.</p>");
+    if (r.status === 429) { $("connText").textContent = "Locked for a few minutes"; timer = setTimeout(refresh, 60000); return; }
+    if (r.status !== 200) { $("connText").textContent = "Something went wrong"; timer = setTimeout(refresh, 5000); return; }
+    offset = r.data.now - Date.now();
+    $("gate").hidden = true; $("main").hidden = false;
+    $("dot").className = "dot ok"; $("connText").textContent = "Connected";
+    draw(r.data);
+    timer = setTimeout(refresh, document.hidden ? 15000 : 5000);
+  }
+
+  function draw(d) {
+    const keys = new Set(d.pending.map((p) => p.run + ":" + p.req));
+    // Buzz and badge the tab only for things that weren't there on the previous refresh.
+    const fresh = known ? d.pending.filter((p) => !known.has(p.run + ":" + p.req)) : [];
+    if (fresh.length && navigator.vibrate) { try { navigator.vibrate([200, 100, 200]); } catch {} }
+    known = keys;
+    document.title = d.pending.length ? `(${d.pending.length}) The Wise Hive needs you` : "The Wise Hive";
+    for (const [k, el] of cards) if (!keys.has(k) && !el.dataset.done) { el.remove(); cards.delete(k); }
+    for (const p of d.pending) {
+      const k = p.run + ":" + p.req;
+      let el = cards.get(k);
+      if (!el) { el = card(p); cards.set(k, el); if (fresh.includes(p)) el.classList.add("new"); $("pending").appendChild(el); }
+      const w = el.querySelector(".when");
+      if (w) { const now = Date.now() + offset; w.textContent = `Waiting ${mins(now - p.since)} · Claude decides on its own in ${mins(p.autoAt - now)}`; }
+    }
+    $("empty").hidden = d.pending.length > 0 || [...cards.values()].some((e) => e.isConnected);
+    $("running").innerHTML = d.running.length ? d.running.map((r) => `<div class="card run"><div><b>${esc(r.title)}</b><small>${esc(KIND[r.kind] || "Chat")} · for ${esc(mins(Date.now() + offset - r.started))}${r.waiting ? " · waiting for you" : ""}</small></div><button type="button" data-stop="${esc(r.id)}" class="${armed.has(r.id) ? "armed" : ""}">${armed.has(r.id) ? "Tap to confirm" : "Stop"}</button></div>`).join("")
+      : `<div class="card empty" style="padding:16px">Nothing is running.</div>`;
+  }
+
+  function card(p) {
+    const el = document.createElement("div");
+    el.className = "card";
+    const head = `<p class="chat">${esc(KIND[p.runKind] || "Chat")} · ${esc(p.chat)}</p>`;
+    if (p.kind === "perm") {
+      const detail = p.command || p.file || p.url || p.input || p.summary || "";
+      el.innerHTML = `${head}<p class="what">Claude wants to ${esc(toolWords(p.tool))}</p>${detail ? `<pre class="box">${esc(detail)}</pre>` : ""}<p class="when"></p>
+        <div class="row"><button type="button" class="allow" data-a="allow">Allow</button><button type="button" class="deny" data-a="deny">Deny</button></div><p class="err" hidden></p>`;
+      el.querySelectorAll("[data-a]").forEach((b) => b.onclick = () => answer(el, p, { decision: b.dataset.a }, b.dataset.a === "allow" ? "Allowed. Claude is carrying on." : "Denied. Claude will find another way."));
+    } else {
+      el.innerHTML = `${head}<p class="what">Claude has a question</p>${p.questions.map((q, i) => `<div class="q" data-q="${i}" data-multi="${q.multi ? 1 : 0}"><b>${esc(q.question)}</b>${q.multi ? `<p class="when">Pick any that fit.</p>` : ""}
+        ${q.options.map((o, j) => `<button type="button" class="opt" aria-pressed="false" data-i="${j}">${esc(o.label)}${o.description && o.description !== o.label ? `<small>${esc(o.description)}</small>` : ""}</button>`).join("")}
+        <textarea rows="2" placeholder="${q.options.length ? "Or type your own answer" : "Type your answer"}"></textarea></div>`).join("")}<p class="when"></p>
+        <button type="button" class="send">Send answer</button><p class="err" hidden></p>`;
+      el.addEventListener("click", (e) => {
+        const o = e.target.closest(".opt"); if (!o) return;
+        const box = o.closest("[data-q]");
+        if (box.dataset.multi !== "1") box.querySelectorAll(".opt").forEach((b) => { if (b !== o) b.setAttribute("aria-pressed", "false"); });
+        o.setAttribute("aria-pressed", o.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      });
+      el.querySelector(".send").onclick = () => {
+        // Picks go by position: the labels shown here may be shortened, and the PC maps each back to the full label.
+        const answers = [...el.querySelectorAll("[data-q]")].map((box) => ({ picked: [...box.querySelectorAll('.opt[aria-pressed="true"]')].map((b) => Number(b.dataset.i)), text: box.querySelector("textarea").value }));
+        answer(el, p, { answers }, "Answer sent. Claude is carrying on.");
+      };
+    }
+    return el;
+  }
+
+  async function answer(el, p, payload, okText) {
+    el.querySelectorAll("button,textarea").forEach((b) => (b.disabled = true));
+    const err = el.querySelector(".err");
+    const r = await call("/papi/answer", { run: p.run, req: p.req, ...payload }).catch(() => null);
+    if (r && r.status === 200 && r.data.ok) { el.dataset.done = "1"; el.classList.remove("new"); el.innerHTML = `<p class="chat">${esc(p.chat)}</p><p class="done">${esc(okText)}</p>`; setTimeout(() => { el.remove(); cards.delete(p.run + ":" + p.req); refresh(); }, 2500); return; }
+    if (r && r.status === 409) { el.dataset.done = "1"; el.innerHTML = `<p class="chat">${esc(p.chat)}</p><p class="when">Already answered, or Claude stopped waiting.</p>`; setTimeout(() => { el.remove(); cards.delete(p.run + ":" + p.req); refresh(); }, 2500); return; }
+    if (r && r.status === 401) return refresh();
+    err.hidden = false; err.textContent = "Couldn't send that. Check the Wi-Fi and try again.";
+    el.querySelectorAll("button,textarea").forEach((b) => (b.disabled = false));
+  }
+
+  // Stop needs two taps (no pop-up dialogs): the first arms the button for 4 seconds.
+  $("running").addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-stop]"); if (!b) return;
+    const id = b.dataset.stop;
+    // The 5 s refresh redraws the list, so the timeout disarms whichever button is on screen for this run now.
+    if (!armed.has(id)) { armed.set(id, setTimeout(() => { armed.delete(id); const cur = [...$("running").querySelectorAll("[data-stop]")].find((x) => x.dataset.stop === id); if (cur) { cur.className = ""; cur.textContent = "Stop"; } }, 4000)); b.className = "armed"; b.textContent = "Tap to confirm"; return; }
+    clearTimeout(armed.get(id)); armed.delete(id);
+    b.disabled = true; b.textContent = "Stopping…";
+    await call("/papi/stop", { run: id }).catch(() => null);
+    setTimeout(refresh, 1500);
+  });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && !stopped) refresh(); });
+  pair().then(refresh);
+})();
+</script>
+</body>
+</html>

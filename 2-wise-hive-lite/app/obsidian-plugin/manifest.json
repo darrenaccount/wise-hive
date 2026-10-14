@@ -1,0 +1,9 @@
+{
+  "id": "wise-hive",
+  "name": "The Wise Hive",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Talk to The Wise Hive app from your notes: ask about a note, hand it over as a task, or put it to the council. Answers come back as linked notes.",
+  "author": "The Wise Hive",
+  "isDesktopOnly": true
+}

@@ -1,0 +1,13 @@
+{
+  "name": "teamwright",
+  "version": "1.0.0",
+  "description": "The Wise Hive: Claude's memory, agent team and chats on this PC",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "44.4.5"
+  }
+}

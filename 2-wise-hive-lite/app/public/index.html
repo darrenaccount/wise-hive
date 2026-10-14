@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Wise Hive</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<nav class="rail" aria-label="Main">
+  <div class="logo" id="logo"></div>
+  <button class="nav" data-view="home" aria-current="page" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button class="nav" data-view="chats" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Chats</button>
+  <button class="nav" data-view="council" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0zM8 21h8"/></svg>Council</button>
+  <button class="nav" data-view="library" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zm0 0a2 2 0 0 0 2 2h13"/></svg>Library</button>
+  <button class="nav" data-view="link" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>Link<span class="nav-badge" id="linkBadge" hidden></span></button>
+  <button class="nav" data-view="activity" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Activity<span class="nav-badge" id="actBadge" hidden></span></button>
+  <button class="nav" data-view="projects" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Projects</button>
+  <button class="nav" data-view="sketch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Sketch</button>
+  <button class="nav" data-view="brainstorm" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/></svg>Brainstorm</button>
+  <button class="nav" data-view="training" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7v10M18 7v10M3 10v4M21 10v4M6 12h12"/></svg>Training<span class="nav-dot live" id="trainDot" hidden></span></button>
+  <button class="nav" data-view="working" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>Working<span class="nav-dot live" id="workDot" hidden></span></button>
+  <button class="nav" data-view="taste" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.9-.7-1.3-.7-2.2 0-.9.8-1.5 1.7-1.5H17a4 4 0 0 0 4-4C21 7 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>Taste</button>
+  <button class="nav" data-view="updates" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Updates<span class="nav-dot" id="updDot" hidden></span></button>
+  <button class="nav nav-bottom" data-view="tutorial" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M22 10v6"/></svg>Tutorial<span class="nav-dot" id="tutDot" hidden></span></button>
+  <button class="nav" data-view="plugins" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0z"/><path d="M12 18v4"/></svg>Plugins</button>
+  <button class="nav" data-view="settings" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings<span class="nav-dot" id="setDot" hidden></span></button>
+</nav>
+
+<!-- HOME -->
+<main class="view" id="v-home">
+  <div class="home">
+    <h1>What should the hive work on?</h1>
+    <div class="scene-wrap" id="homeSceneWrap" hidden><canvas id="sceneHome" class="scene" style="aspect-ratio:2/1" role="img" aria-label="Queen Claude's castle hall: the queen on her throne and the team around the round table. Click a Claude to see what it does."></canvas><div class="scene-cap"><b>Queen Claude</b><span class="muted" id="queenCap"></span></div></div>
+    <div class="ring" id="ring">
+      <div class="queen"><div class="glow"></div><div id="queenArt" class="bob" style="width:150px"></div><b>Queen Claude</b><small id="queenStats">Remembering…</small></div>
+    </div>
+    <p class="tip muted" id="tip">Tap a Claude to see what it does.</p>
+    <div class="ask">
+      <textarea id="homeAsk" placeholder="Describe a task, ask a question, or pick up where we left off"></textarea>
+      <div class="row"><select id="homeFolder" aria-label="Project folder"></select><label class="toggle"><input type="checkbox" id="homeTeam"> Team of agents</label><select id="homeRefine" class="refine-pick" aria-label="Prompt refiner"></select><span class="spacer"></span><button class="btn primary" id="homeGo" type="button">Start chat</button></div>
+    </div>
+  </div>
+</main>
+
+<!-- CHATS -->
+<main class="view" id="v-chats" hidden style="padding:0">
+  <div class="chats" id="chatsWrap">
+    <aside class="list">
+      <div class="resizer" id="listResizer" role="separator" aria-orientation="vertical" aria-label="Resize the chat list (drag, or use the arrow keys; double-click to reset)" tabindex="0"></div>
+      <header><button class="btn primary" id="newChat" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>New chat</button><div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="text" id="chatSearch" spellcheck="false" placeholder="Search chats" aria-label="Search chats"></div></header>
+      <div class="items" id="chatItems"></div>
+    </aside>
+    <section class="convo">
+      <header><button class="btn small" id="backToList" type="button" hidden>Chats</button><h2 id="chatTitle">New chat</h2><span class="chip" id="chatFolder"></span><span class="spacer"></span><span class="status" id="chatStatus" hidden></span></header>
+      <div class="msgs" id="msgs"></div>
+      <div class="composer"><div class="inner">
+        <div class="banner" id="loginBanner" hidden>Claude Code isn't signed in on this PC yet. Open a terminal, run <code>claude</code>, type <code>/login</code> and finish signing in once. Then send again.</div>
+        <div class="card stack refine" id="refineBox" hidden></div>
+        <div class="attach-row" id="attachRow" hidden></div>
+        <div class="compose-box">
+          <textarea id="prompt" placeholder="Message Claude…" aria-label="Message Claude"></textarea>
+          <div class="compose-bar">
+            <button class="iconbtn" id="attachBtn" type="button" title="Attach images or files (or paste / drop them)" aria-label="Attach images or files"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11l-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/></svg></button>
+            <input type="file" id="attachInput" multiple hidden>
+            <select id="chatFolderPick" class="pill" aria-label="Project folder" title="Project folder"></select>
+            <button class="pill" id="optsBtn" type="button" aria-expanded="false" aria-controls="optsPop" title="Permissions, model and effort"></button>
+            <button class="pill" id="extrasBtn" type="button" aria-expanded="false" aria-controls="extrasPop" title="Optional extras: refiner, Chrome, team of agents"></button>
+            <span class="spacer"></span>
+            <button class="stopbtn" id="stop" type="button" hidden title="Stop Claude" aria-label="Stop Claude"><svg viewBox="0 0 24 24" width="14" height="14"><rect x="5" y="5" width="14" height="14" rx="2" fill="currentColor"/></svg></button>
+            <button class="sendbtn" id="send" type="button" title="Send (Enter)" aria-label="Send"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+          </div>
+          <div class="opts-pop" id="optsPop" hidden>
+            <label for="mode">Permissions</label>
+            <select id="mode" title="What Claude may do without asking">
+              <option value="edit">Edit files, ask for the rest</option>
+              <option value="read">Read only</option>
+              <option value="full">Full access, never ask</option>
+            </select>
+            <label for="model">Model</label>
+            <select id="model">
+              <option value="">Default (Opus 5.5)</option>
+              <option value="claude-opus-5-5">Opus 5.5</option>
+              <option value="claude-sonnet-5-5">Sonnet 5.5</option>
+              <option value="claude-haiku-5-5">Haiku 5.5</option>
+              <option value="claude-fable-5-1">Fable 5.1</option>
+            </select>
+            <label for="effort">Effort</label>
+            <select id="effort">
+              <option value="">Auto effort</option>
+              <option value="low">Low effort</option>
+              <option value="medium">Medium effort</option>
+              <option value="high">High effort</option>
+              <option value="xhigh">Extra-high effort</option>
+            </select>
+          </div>
+          <div class="opts-pop extras" id="extrasPop" hidden>
+            <label for="refine">Refiner</label>
+            <select id="refine" class="refine-pick"></select>
+            <p class="opt-help">Rewrites short prompts into detailed ones before they run.</p>
+            <div class="toggles">
+              <label class="toggle"><input type="checkbox" id="chrome"> Browse with Chrome</label>
+              <p class="opt-help">Claude can open websites, click and read pages in your Chrome.</p>
+              <label class="toggle"><input type="checkbox" id="team"> Team of agents</label>
+              <p class="opt-help">Splits big tasks between a Researcher, a Builder and a Critic.</p>
+            </div>
+          </div>
+        </div>
+        <div class="hint">Enter to send · Shift+Enter for a new line · paste or drop images and files</div>
+      </div></div>
+      <button class="clar-av" id="clarAv" type="button" hidden aria-label="Clarifier questions" aria-expanded="false"><span class="bob" id="clarArt"></span><span class="clar-badge" id="clarBadge" hidden></span></button>
+      <aside class="card clar-panel" id="clarPanel" hidden aria-label="Clarifier"></aside>
+    </section>
+  </div>
+</main>
+
+<!-- COUNCIL -->
+<main class="view" id="v-council" hidden>
+  <div class="page">
+    <header><div id="councilArt" style="width:64px"></div><div><h1>The Council</h1><p class="muted" style="margin:2px 0 0">Pitch an idea. Your council argues it, then the Judge rules.</p></div></header>
+    <div class="scene-wrap" id="councilSceneWrap" hidden><canvas id="sceneCouncil" class="scene" style="aspect-ratio:320/140" role="img" aria-label="The courtroom: the council's seats at their stands, the Judge at the bench above."></canvas></div>
+    <div class="card stack">
+      <textarea id="idea" style="min-height:70px" placeholder="e.g. A weekly live boss event that any Roblox game can plug in"></textarea>
+      <div class="cs-wrap" id="councilSeatBar"></div>
+      <div class="row"><span class="muted" style="font-size:13px">Every debate is saved to the brain's council folder.</span><span class="spacer"></span><button class="btn primary" id="convene" type="button">Convene the council</button></div>
+    </div>
+    <div class="three" id="seats"></div>
+    <div class="card seat" id="judgeSeat"></div>
+  </div>
+</main>
+
+<!-- LINK -->
+<main class="view" id="v-link" hidden>
+  <div class="page">
+    <header><div id="linkArt" class="bob" style="width:64px"></div><div><h1>Link</h1><p class="muted" style="margin:2px 0 0">Talk to Claude in the Claude desktop app, and hand tasks back and forth. Tasks it hands you start as chats here, even while this window is closed.</p></div></header>
+    <div class="card row"><label for="linkTarget" class="muted" style="font-size:14px">Desktop chat name</label><input type="text" id="linkTarget" spellcheck="false" style="flex:1;min-width:200px"><button class="btn small" id="linkSave" type="button">Save</button></div>
+    <div class="stack" id="linkMsgs"></div>
+    <div class="card stack">
+      <textarea id="linkText" style="min-height:70px" placeholder="Message Claude in the desktop app"></textarea>
+      <div class="row"><label class="toggle"><input type="checkbox" id="linkTask"> Send as a task to do</label><span class="spacer"></span><button class="btn primary" id="linkSend" type="button">Send</button></div>
+    </div>
+  </div>
+</main>
+
+<!-- ACTIVITY -->
+<main class="view" id="v-activity" hidden>
+  <div class="page">
+    <header><div id="actArt" class="bob" style="width:64px"></div><div><h1>Activity</h1><p class="muted" style="margin:2px 0 0">Everything Claude is doing right now, across every chat, background agent and handoff.</p></div></header>
+    <div class="scene-wrap" id="activitySceneWrap" hidden><canvas id="sceneActivity" class="scene" style="aspect-ratio:320/100" role="img" aria-label="The hive at work: one Claude for every chat and agent that's running."></canvas></div>
+    <section class="stack"><h2 class="sec">Needs you</h2><div id="actNeeds" class="stack"></div></section>
+    <section class="stack"><h2 class="sec">Working now</h2><div id="actWorking" class="stack"></div></section>
+    <section class="stack"><h2 class="sec">Background agents</h2><div id="actJobs" class="stack"></div></section>
+    <section class="stack"><h2 class="sec">Finished recently</h2><div id="actDone" class="stack"></div></section>
+  </div>
+</main>
+
+<!-- PROJECTS -->
+<main class="view" id="v-projects" hidden>
+  <div class="page">
+    <header><div id="projArt" class="bob" style="width:64px"></div><div><h1>Projects</h1><p class="muted" style="margin:2px 0 0">Your project folders, what the brain knows about each, and their recent chats.</p></div></header>
+    <div class="projs" id="projList"></div>
+  </div>
+</main>
+
+<!-- SKETCH -->
+<main class="view" id="v-sketch" hidden style="padding:0">
+  <div class="sketch">
+    <section class="board-wrap">
+      <div class="toolbar" role="toolbar" aria-label="Drawing tools">
+        <div class="tgroup" id="skTools"></div>
+        <span class="tsep"></span>
+        <div class="tgroup" id="skColors"></div>
+        <span class="tsep"></span>
+        <div class="tgroup" id="skSizes"></div>
+        <span class="tsep"></span>
+        <button class="tbtn" id="skUndo" type="button" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+        <button class="tbtn" id="skRedo" type="button" title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+        <button class="tbtn" id="skClear" type="button" title="Clear the board" aria-label="Clear the board"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+      </div>
+      <div class="board" id="skBoard"><canvas id="skCanvas" aria-label="Drawing board"></canvas><input type="text" id="skTextInput" class="sk-text" hidden aria-label="Text to place on the board"></div>
+    </section>
+    <aside class="sk-side">
+      <div class="row" style="gap:10px"><span id="skArt" style="width:46px" class="bob"></span><div><h2 style="font-size:19px">Show Claude</h2><p class="muted" style="margin:0;font-size:13px">Draw your idea, and Claude says what it sees and what it thinks you mean.</p></div></div>
+      <input type="text" id="skTitle" placeholder="Name this sketch (optional)">
+      <textarea id="skNote" style="min-height:64px" placeholder="Anything to add? e.g. &quot;layout for the lobby, top is north&quot; (optional)"></textarea>
+      <button class="btn primary" id="skShow" type="button">Show Claude</button>
+      <div class="card sk-out" id="skOut" hidden></div>
+      <div class="row" id="skUseRow" hidden><button class="btn small" id="skUse" type="button">Use in a new chat</button><span class="muted" style="font-size:12px">Attaches the sketch and Claude's summary.</span></div>
+      <h3 class="sec" style="margin-top:6px">Past sketches</h3>
+      <div class="sk-gallery" id="skGallery"></div>
+    </aside>
+  </div>
+</main>
+
+<!-- TRAINING / WORKING / UPDATES: built by autopilot-client.js and updates-client.js -->
+<main class="view" id="v-training" hidden style="padding:0"><div class="ap-root" id="trainingRoot" data-mode="training"></div></main>
+<main class="view" id="v-working" hidden style="padding:0"><div class="ap-root" id="workingRoot" data-mode="working"></div></main>
+<!-- TASTE: built by taste-client.js -->
+<main class="view" id="v-taste" hidden><div class="page" id="tasteRoot"></div></main>
+<main class="view" id="v-updates" hidden><div class="page" id="updatesRoot"></div></main>
+<main class="view" id="v-brainstorm" hidden style="padding:0"><div id="brainstormRoot" class="bs-root"></div></main>
+<main class="view" id="v-plugins" hidden><div class="page" id="pluginsRoot"></div></main>
+<!-- TUTORIAL: built by tutorial-client.js -->
+<main class="view" id="v-tutorial" hidden><div class="page" id="tutorialRoot"></div></main>
+
+<!-- SETTINGS -->
+<main class="view" id="v-settings" hidden>
+  <div class="page">
+    <header><div id="setArt" class="bob" style="width:64px"></div><div><h1>Settings &amp; health</h1><p class="muted" style="margin:2px 0 0">Is everything running, and what can Claude reach.</p></div><span class="spacer"></span><button class="btn small" id="setRefresh" type="button">Check again</button></header>
+    <div class="health" id="healthCards"></div>
+    <section class="card stack"><div class="row"><h2 class="sec" style="margin:0">Connected tools</h2><span class="spacer"></span><span class="muted" id="mcpAt" style="font-size:12px"></span></div><div id="mcpList" class="mcp"></div></section>
+    <section class="card stack"><h2 class="sec" style="margin:0">Server log</h2><pre class="log" id="logTail"></pre></section>
+  </div>
+</main>
+
+<!-- LIBRARY -->
+<main class="view" id="v-library" hidden>
+  <div class="page">
+    <div class="scene-wrap" id="librarySceneWrap" hidden><canvas id="sceneLibrary" class="scene" style="aspect-ratio:320/110" role="img" aria-label="The library: the Librarian walking between the bookshelves, tidying books."></canvas></div>
+    <div class="lib-hero"><div id="libArt" class="bob" style="width:110px;flex:none"></div>
+      <div class="speech"><b style="font-family:var(--f-display);font-size:18px">The Librarian</b><p style="margin:4px 0 8px" id="libSpeech">I file everything the hive learns, and where it was learned, so no Claude has to learn it twice.</p>
+      <div class="row"><button class="btn primary" id="tidy" type="button">Tidy the library</button><span class="muted" style="font-size:13px">Reads new conversations and files the lessons.</span></div>
+      <div class="row" style="margin-top:6px"><span id="orgArt" style="width:30px"></span><button class="btn" id="organize" type="button">Organize the folders</button><span class="muted" style="font-size:13px">The Organizer moves memories, lessons, scripts and skills into the right files and merges duplicates. Every move is logged in <code>organizer\log.md</code>.</span></div></div>
+    </div>
+    <div class="card stack" id="tidyLog" hidden></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-lt="mem" aria-selected="true" type="button">Memories</button>
+      <button class="tab" role="tab" data-lt="skills" aria-selected="false" type="button">Skills &amp; lessons</button>
+      <button class="tab" role="tab" data-lt="convos" aria-selected="false" type="button">Conversations</button>
+      <button class="tab" role="tab" data-lt="prompts" aria-selected="false" type="button">Prompts</button>
+    </div>
+    <div id="lt-mem" class="stack"><input type="text" id="memSearch" spellcheck="false" placeholder="Search memories"><div class="mems" id="memList"></div></div>
+    <div id="lt-skills" class="stack" hidden></div>
+    <div id="lt-convos" class="stack" hidden></div>
+    <div id="lt-prompts" class="stack" hidden></div>
+  </div>
+</main>
+
+<!-- Pixel-art engine and scenes load first so the main script can mount them; feature modules load after it. -->
+<script src="/pixel.js"></script>
+<script src="/scenes/castle.js"></script>
+<script src="/scenes/library.js"></script>
+<script src="/scenes/council.js"></script>
+<script src="/scenes/activity.js"></script>
+<script src="/scenes/training.js"></script>
+<script src="/scenes/working.js"></script>
+<script src="/app.js"></script>
+<script src="/ideas-client.js"></script>
+<script src="/autopilot-client.js"></script>
+<script src="/updates-client.js"></script>
+<script src="/review-client.js"></script>
+<script src="/search-client.js"></script>
+<script src="/digest-client.js"></script>
+<script src="/memhealth-client.js"></script>
+<script src="/cleanup-client.js"></script>
+<script src="/phone-client.js"></script>
+<script src="/tutorial-client.js"></script>
+<script src="/brainstorm-client.js"></script>
+<script src="/plugins-client.js"></script>
+<script src="/media-core.js"></script>
+<script src="/media-client.js"></script>
+<script src="/council-client.js"></script>
+<script src="/jobs-client.js"></script>
+<script src="/chatopts-client.js"></script>
+<script src="/trim-client.js"></script>
+<script src="/skillsmith-client.js"></script>
+<script src="/navorder-client.js"></script>
+<script src="/rounds-client.js"></script>
+<script src="/taste-client.js"></script>
+</body>
+</html>
