@@ -63,6 +63,7 @@ Everything runs on your PC with your own Claude account. Nothing is uploaded any
 
 ## Requirements
 - Windows 10 or 11
+- About **550 MB of free disk space**: the download itself is a few MB, and setup adds the desktop app engine (Electron, about 150 MB download). `-WithVideo` needs extra space for Python, yt-dlp and FFmpeg.
 - A Claude account (Pro or Max recommended: the agents use real Claude sessions)
 - The **Claude Code CLI** and **Node.js**. The installer adds both if you use `-InstallMissing` (Node.js through winget, Claude Code through its official installer). The first time, open a terminal and run `claude` once to sign in if The Wise Hive chats say you're not logged in.
 

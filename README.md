@@ -6,6 +6,8 @@
 
 > **Install only ONE edition: the full one or Lite, not both.** They're two versions of the same app, so you only need one. Both work on any Claude plan. On **Max**, the full edition works best; if you want your usage to go further, pick **Lite** ([compare them below](#which-one)). Changed your mind later? Just install the other one: it replaces the first and keeps everything you've taught it.
 
+**Size:** the same for both editions. The download from GitHub is small (about 2-6 MB). During setup the installer also downloads the desktop app's engine (Electron, about 150 MB), so plan for **about 550 MB of disk space** in total. If Node.js or the Claude Code CLI aren't on your PC yet, `-InstallMissing` downloads those too.
+
 **Easiest:** open the **Claude desktop app**, start a chat in the **Code** tab, and paste one of these:
 
 > Install The Wise Hive from https://github.com/darrenaccount/wise-hive/tree/main/1-wise-hive
@@ -41,6 +43,7 @@ Step-by-step guides: [1-wise-hive/INSTALL.md](1-wise-hive/INSTALL.md) · [2-wise
 | What it is | The full edition: every helper agent at full power | The same app and memory with lighter helpers that run less often |
 | Good for | Any plan, and works best on Max: every helper at full power | Any plan, when you want your usage to go further or you use Claude a lot for other things |
 | Claude usage | More: the helpers are extra Claude runs | Far less: about 7× fewer tokens per helper run |
+| Download and disk space | ~2-6 MB download, then ~150 MB for the app engine during setup; ~550 MB on disk | The same |
 | Your main chats | Full Claude Code power | **Identical**, only the helpers around them are lighter |
 | Memory, transcripts, app, skills | ✓ | ✓ (identical) |
 | Memory loaded when a chat starts | Everything (~72,000 characters: index, lessons, knowledge notes) | The essentials (~8,600 characters); matching notes still arrive with every message |

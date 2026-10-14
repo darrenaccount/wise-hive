@@ -1,6 +1,6 @@
 # How to install The Wise Hive
 
-Takes about 5 minutes. You need a Windows 10 or 11 PC and a Claude account (Pro or Max).
+Takes about 5 minutes. You need a Windows 10 or 11 PC and a Claude account (Pro or Max), and about 550 MB of free disk space (the installer downloads about 150 MB).
 
 ## The easy way: ask Claude to do it
 
