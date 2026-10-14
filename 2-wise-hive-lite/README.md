@@ -24,7 +24,7 @@ Or run this in PowerShell yourself:
 
 ## About
 
-The Wise Hive Lite is the lighter edition of [The Wise Hive](https://github.com/darrenaccount/wise-hive/tree/main/1-wise-hive). You get the same memory, the same brain folder, the same desktop app and the same `/wise-hive` skills. The difference is that the helper agents are trimmed down so your plan's usage limit lasts much longer. Pick Lite if you're on a Pro plan, share your limit with a lot of normal Claude work, or just want The Wise Hive without the extra cost.
+The Wise Hive Lite is the lighter edition of [The Wise Hive](https://github.com/darrenaccount/wise-hive/tree/main/1-wise-hive). You get the same memory, the same brain folder, the same desktop app and the same `/wise-hive` skills. The difference is that the helper agents are trimmed down so your plan's usage limit lasts much longer. Pick Lite if you want your usage to go further, share your limit with a lot of normal Claude work, or just want The Wise Hive without the extra cost. (On Max, the full edition works best.)
 
 **Memory:** a brain folder on your PC holds Claude's memories, project notes, lessons and a readable copy of every conversation. Every new chat reads it first, whether in the Claude desktop app, Claude Code in a terminal, or The Wise Hive app. Your existing Claude memories and past chats are copied in when you install. The folder also opens as an Obsidian vault, with a plugin to ask The Wise Hive questions from your notes.
 
@@ -80,7 +80,7 @@ The app shows a gold **LITE** badge under the logo, the window and shortcut are 
 Everything runs on your PC with your own Claude account. Nothing is uploaded anywhere by The Wise Hive.
 
 ## Requirements
-- Windows 10 or 11, and a Claude account (Pro is enough for Lite)
+- Windows 10 or 11, and a Claude account (Pro or Max)
 - The **Claude Code CLI** and **Node.js**: the installer adds both with `-InstallMissing`. If The Wise Hive chats say you're not logged in, open a terminal and run `claude` once to sign in.
 
 ## Installer options

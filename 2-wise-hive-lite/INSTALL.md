@@ -1,6 +1,6 @@
 # How to install The Wise Hive Lite
 
-Takes about 5 minutes. You need a Windows 10 or 11 PC and a Claude account (Pro is enough).
+Takes about 5 minutes. You need a Windows 10 or 11 PC and a Claude account (Pro or Max).
 
 ## The easy way: ask Claude to do it
 

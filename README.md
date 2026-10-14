@@ -4,7 +4,7 @@
 
 ## Install
 
-> **Install only ONE edition: the full one or Lite, not both.** They're two versions of the same app, so you only need one. Not sure? Pick **Lite** if you're on the Pro plan, and the full edition if you're on Max ([compare them below](#which-one)). Changed your mind later? Just install the other one: it replaces the first and keeps everything you've taught it.
+> **Install only ONE edition: the full one or Lite, not both.** They're two versions of the same app, so you only need one. Both work on any Claude plan. On **Max**, the full edition works best; if you want your usage to go further, pick **Lite** ([compare them below](#which-one)). Changed your mind later? Just install the other one: it replaces the first and keeps everything you've taught it.
 
 **Easiest:** open the **Claude desktop app**, start a chat in the **Code** tab, and paste one of these:
 
@@ -39,7 +39,7 @@ Step-by-step guides: [1-wise-hive/INSTALL.md](1-wise-hive/INSTALL.md) · [2-wise
 | | 📁 **[1-wise-hive](1-wise-hive)** | 📁 **[2-wise-hive-lite](2-wise-hive-lite)** |
 |---|---|---|
 | What it is | The full edition: every helper agent at full power | The same app and memory with lighter helpers that run less often |
-| Good for | Max plans, or when you want everything | Pro plans, or if you use Claude a lot for other things |
+| Good for | Any plan, and works best on Max: every helper at full power | Any plan, when you want your usage to go further or you use Claude a lot for other things |
 | Claude usage | More: the helpers are extra Claude runs | Far less: about 7× fewer tokens per helper run |
 | Your main chats | Full Claude Code power | **Identical**, only the helpers around them are lighter |
 | Memory, transcripts, app, skills | ✓ | ✓ (identical) |

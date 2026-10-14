@@ -43,5 +43,5 @@ This removes The Wise Hive from Claude and Windows but **keeps your memory folde
 
 ## Good to know
 - **Your memory folder is private.** It holds your chats and notes. Back it up (OneDrive, a USB stick), but never share or upload it.
-- **It uses your Claude usage.** The helper agents are extra Claude runs. If you're on a Pro plan or want to save usage, install [Wise Hive Lite](https://github.com/darrenaccount/wise-hive/tree/main/2-wise-hive-lite) instead. It uses the same memory folder, so you can switch any time.
+- **It uses your Claude usage.** The helper agents are extra Claude runs. On Max, the full edition works best. If you'd rather save usage, you can install [Wise Hive Lite](https://github.com/darrenaccount/wise-hive/tree/main/2-wise-hive-lite) instead. It uses the same memory folder, so you can switch any time.
 - **Something went wrong?** Ask Claude: "My The Wise Hive install failed, here's the output:" and paste what the installer printed.
